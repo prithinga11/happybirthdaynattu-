@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💌 Virtual Letter</title>
+<style>
+  body {
+    background-color: #f9eef3;
+    font-family: "Poppins", sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+  }
+  .envelope {
+    font-size: 8rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  .envelope:hover {
+    transform: scale(1.1);
+  }
+  .letter {
+    display: none;
+    background: #fff8fb;
+    color: #2f2f2f;
+    border: 2px solid #f0bfd3;
+    border-radius: 16px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    padding: 30px;
+    width: 70%;
+    max-width: 700px;
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-top: 20px;
+    animation: fadeIn 0.6s ease-in-out;
+  }
+  .close-btn {
+    float: right;
+    color: #e06b8c;
+    font-size: 22px;
+    cursor: pointer;
+  }
+  .close-btn:hover {
+    color: #d15678;
+  }
+  .closing {
+    text-align: right;
+    margin-top: 15px;
+    font-style: italic;
+    color: #c06a8c;
+    font-weight: 500;
+  }
+  @keyframes fadeIn {
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+</style>
+</head>
+<body>
+
+<div class="envelope" id="envelope">💌</div>
+
+<div class="letter" id="letter">
+  <span class="close-btn" id="close">×</span>
+  <p>Dear YOU,</p>
+
+  <p>I hope everything is fine. It’s been a very long time since I last wrote to you. HAPPIEST BIRTHDAY, NATTU 🥳! Nineteen is here!! May this year be kinder, loving, and joyful.</p>
+
+  <p>Last Oct 25, I was confused if I should wish you or not, but this birthday, I’m writing a letter. I never thought I would write letters to you again, but I’m very glad that we got back together 😊. The soft spot for you always stays, no matter what you do—it never goes away!</p>
+
+  <p>You only deserve the best! The best of the best will find you. Never stop being YOU! That’s something which always gets my way back to you! I was looking for a friend like you, and at some point, I stopped looking and realised that there was NO ONE LIKE YOU. Honestly, life’s better around you, and I just wanted to tell you before I start overthinking again 😂</p>
+
+  <p>So, here’s to another year of your awesomeness—full of laughs, random adventures, and all the happiness. May you keep being that little spark who makes everyone smile without even trying. Don’t forget, I’ll always be cheering for you (and occasionally teasing you 😂), because friends like you are once in a lifetime.</p>
+
+  <p>Nattu! Let’s make this year unforgettable—just like you. 💌✨</p>
+
+  <div class="closing">— Prithinga 🤍</div>
+</div>
+
+<script>
+document.getElementById("envelope").addEventListener("click", function() {
+  document.getElementById("envelope").style.display = "none";
+  document.getElementById("letter").style.display = "block";
+});
+document.getElementById("close").addEventListener("click", function() {
+  document.getElementById("letter").style.display = "none";
+  document.getElementById("envelope").style.display = "block";
+});
+</script>
+
+</body>
+</html>
