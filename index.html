@@ -1,52 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>💌 Virtual Letter</title>
 <style>
+  /* basic box sizing */
+  *, *::before, *::after { box-sizing: border-box; }
+
+  /* page */
   body {
     background-color: #f9eef3;
     font-family: "Poppins", sans-serif;
+    margin: 0;
+    min-height: 100vh;          /* allow page to grow */
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    height: 100vh;
-    margin: 0;
+    justify-content: flex-start; /* don't vertically center (prevents clipping) */
+    padding: 32px 16px;         /* top padding so envelope isn't flush to top on mobile */
   }
+
+  /* envelope icon */
   .envelope {
-    font-size: 8rem;
+    font-size: clamp(3.5rem, 12vw, 8rem); /* responsive size */
     cursor: pointer;
-    transition: transform 0.3s ease;
+    transition: transform 0.25s ease;
+    user-select: none;
+    line-height: 1;
   }
-  .envelope:hover {
-    transform: scale(1.1);
-  }
+  .envelope:hover { transform: scale(1.08); }
+
+  /* letter card */
   .letter {
     display: none;
     background: #fff8fb;
     color: #2f2f2f;
     border: 2px solid #f0bfd3;
     border-radius: 16px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    padding: 30px;
-    width: 70%;
-    max-width: 700px;
-    font-size: 1rem;
-    line-height: 1.7;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    padding: 24px;
+    width: 92%;
+    max-width: 720px;
+    font-size: clamp(0.95rem, 1.6vw, 1.05rem);
+    line-height: 1.6;
     margin-top: 20px;
-    animation: fadeIn 0.6s ease-in-out;
+
+    /* important: limit height so it never overflows viewport without scrolling */
+    max-height: calc(100vh - 140px); /* leave room for padding + envelope */
+    overflow-y: auto;
+    position: relative;
+    animation: fadeIn 0.45s ease-in-out;
   }
+
+  /* nice scrolling on mobile */
+  .letter:focus { outline: none; }
+
+  /* close button positioned reliably */
   .close-btn {
-    float: right;
+    position: absolute;
+    top: 10px;
+    right: 12px;
     color: #e06b8c;
     font-size: 22px;
     cursor: pointer;
+    background: transparent;
+    border: none;
+    padding: 6px;
+    line-height: 1;
   }
-  .close-btn:hover {
-    color: #d15678;
-  }
+  .close-btn:hover { color: #d15678; }
+
   .closing {
     text-align: right;
     margin-top: 15px;
@@ -54,42 +78,61 @@
     color: #c06a8c;
     font-weight: 500;
   }
+
+  /* small screens tweaks */
+  @media (max-width: 420px) {
+    body { padding: 20px 12px; }
+    .letter { padding: 18px; max-height: calc(100vh - 120px); }
+    .close-btn { top: 8px; right: 10px; }
+  }
+
   @keyframes fadeIn {
-    from {opacity: 0; transform: translateY(20px);}
-    to {opacity: 1; transform: translateY(0);}
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 </style>
 </head>
 <body>
 
-<div class="envelope" id="envelope">💌</div>
+  <div class="envelope" id="envelope" aria-hidden="false" title="Open letter">💌</div>
 
-<div class="letter" id="letter">
-  <span class="close-btn" id="close">×</span>
-  <p>Dear YOU,</p>
+  <div class="letter" id="letter" role="region" aria-label="Birthday letter">
+    <button class="close-btn" id="close" aria-label="Close letter">×</button>
 
-  <p>I hope everything is fine. It’s been a very long time since I last wrote to you. HAPPIEST BIRTHDAY, NATTU 🥳! Nineteen is here!! May this year be kinder, loving, and joyful.</p>
+    <p>Dear YOU,</p>
 
-  <p>Last Oct 25, I was confused if I should wish you or not, but this birthday, I’m writing a letter. I never thought I would write letters to you again, but I’m very glad that we got back together 😊. The soft spot for you always stays, no matter what you do—it never goes away!</p>
+    <p>I hope everything is fine. It’s been a very long time since I last wrote to you. HAPPIEST BIRTHDAY, NATTU 🥳! Nineteen is here!! May this year be kinder, loving, and joyful.</p>
 
-  <p>You only deserve the best! The best of the best will find you. Never stop being YOU! That’s something which always gets my way back to you! I was looking for a friend like you, and at some point, I stopped looking and realised that there was NO ONE LIKE YOU. Honestly, life’s better around you, and I just wanted to tell you before I start overthinking again 😂</p>
+    <p>Last Oct 25, I was confused if I should wish you or not, but this birthday, I’m writing a letter. I never thought I would write letters to you again, but I’m very glad that we got back together 😊. The soft spot for you always stays, no matter what you do—it never goes away!</p>
 
-  <p>So, here’s to another year of your awesomeness—full of laughs, random adventures, and all the happiness. May you keep being that little spark who makes everyone smile without even trying. Don’t forget, I’ll always be cheering for you (and occasionally teasing you 😂), because friends like you are once in a lifetime.</p>
+    <p>You only deserve the best! The best of the best will find you. Never stop being YOU! That’s something which always gets my way back to you! I was looking for a friend like you, and at some point, I stopped looking and realised that there was NO ONE LIKE YOU. Honestly, life’s better around you, and I just wanted to tell you before I start overthinking again 😂</p>
 
-  <p>Nattu! Let’s make this year unforgettable—just like you. 💌✨</p>
+    <p>So, here’s to another year of your awesomeness—full of laughs, random adventures, and all the happiness. May you keep being that little spark who makes everyone smile without even trying. Don’t forget, I’ll always be cheering for you (and occasionally teasing you 😂), because friends like you are once in a lifetime. And you always find it difficult to keep away letters from your mom so, this time u don't have to have to worry!🤪</p>
 
-  <div class="closing">— Prithinga 🤍</div>
-</div>
+    <p>Hope this made you smile little wider 🌟</p>
+
+    <div class="closing">— Prithinga 🤍</div>
+  </div>
 
 <script>
-document.getElementById("envelope").addEventListener("click", function() {
-  document.getElementById("envelope").style.display = "none";
-  document.getElementById("letter").style.display = "block";
-});
-document.getElementById("close").addEventListener("click", function() {
-  document.getElementById("letter").style.display = "none";
-  document.getElementById("envelope").style.display = "block";
-});
+  const envelope = document.getElementById("envelope");
+  const letter = document.getElementById("letter");
+  const closeBtn = document.getElementById("close");
+
+  envelope.addEventListener("click", () => {
+    envelope.style.display = "none";
+    letter.style.display = "block";
+    // focus the letter so keyboard users / mobile scroll position behave better
+    letter.focus();
+    // ensure top of letter is visible on small screens
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  closeBtn.addEventListener("click", () => {
+    letter.style.display = "none";
+    envelope.style.display = "block";
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 </script>
 
 </body>
