@@ -13,17 +13,17 @@
     background-color: #f9eef3;
     font-family: "Poppins", sans-serif;
     margin: 0;
-    min-height: 100vh;          /* allow page to grow */
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start; /* don't vertically center (prevents clipping) */
-    padding: 32px 16px;         /* top padding so envelope isn't flush to top on mobile */
+    justify-content: center; /* 💖 centers envelope vertically */
+    padding: 0; /* no extra top padding */
   }
 
   /* envelope icon */
   .envelope {
-    font-size: clamp(3.5rem, 12vw, 8rem); /* responsive size */
+    font-size: clamp(3.5rem, 12vw, 8rem);
     cursor: pointer;
     transition: transform 0.25s ease;
     user-select: none;
@@ -45,18 +45,14 @@
     font-size: clamp(0.95rem, 1.6vw, 1.05rem);
     line-height: 1.6;
     margin-top: 20px;
-
-    /* important: limit height so it never overflows viewport without scrolling */
-    max-height: calc(100vh - 140px); /* leave room for padding + envelope */
+    max-height: calc(100vh - 140px);
     overflow-y: auto;
     position: relative;
     animation: fadeIn 0.45s ease-in-out;
   }
 
-  /* nice scrolling on mobile */
   .letter:focus { outline: none; }
 
-  /* close button positioned reliably */
   .close-btn {
     position: absolute;
     top: 10px;
@@ -79,9 +75,8 @@
     font-weight: 500;
   }
 
-  /* small screens tweaks */
   @media (max-width: 420px) {
-    body { padding: 20px 12px; }
+    body { padding: 20px 12px; justify-content: flex-start; padding-top: 80px; } /* keeps it slightly higher on small screens */
     .letter { padding: 18px; max-height: calc(100vh - 120px); }
     .close-btn { top: 8px; right: 10px; }
   }
@@ -122,9 +117,7 @@
   envelope.addEventListener("click", () => {
     envelope.style.display = "none";
     letter.style.display = "block";
-    // focus the letter so keyboard users / mobile scroll position behave better
     letter.focus();
-    // ensure top of letter is visible on small screens
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
